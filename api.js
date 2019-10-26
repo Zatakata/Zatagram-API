@@ -1,20 +1,36 @@
 const express = require('express')
 const router = express.Router()
+const User = require('./users')
 
 router.get('/users', (req, res) => {
-    res.send({method: 'GET'})
+    User.find({})
+        .then(user => {
+            res.send(user)
+        })
 })
 
 router.post('/users', (req, res) => {
-    res.send({method: 'POST'})
+    User.create(req.body)
+        .then(user => {
+            res.send(user)
+        })
 })
 
 router.put('/users/:id', (req, res) => {
-    res.send({method: 'PUT'})
+    User.findByIdAndUpdate({_id: req.params.id}, req.body)
+        .then(() => {
+            User.findOne({_id: req.params.id})
+                .then(user => {
+                    res.send(user)
+                })
+        })
 })
 
 router.delete('/users/:id', (req, res) => {
-    res.send({method: 'DELETE'})
+    User.deleteOne({_id: req.params.id})
+        .then(user => {
+            res.send(user)
+        })
 })
 
 module.exports = router
