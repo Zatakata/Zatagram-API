@@ -6,6 +6,14 @@ const UsersSchema = new Schema({
     nickname: String,
     avatar: String,
     age: Number,
+    posts: [
+        {
+            name: String,
+            likes: Number,
+            isLike: Boolean,
+            photoSrc: String, 
+        }
+    ]
 })
 
 const User = mongoose.model("users", UsersSchema)

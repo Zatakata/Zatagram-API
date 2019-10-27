@@ -9,6 +9,16 @@ router.get('/users', (req, res) => {
         })
 })
 
+router.get('/users/:id', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
+
+    User.findById({_id: req.params.id })
+        .then(user => {
+            res.send(user)
+        })
+})
+
 router.post('/users', (req, res) => {
     User.create(req.body)
         .then(user => {
